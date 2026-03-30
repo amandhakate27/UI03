@@ -1,111 +1,155 @@
+# UI03 — Student Profile Dashboard Card
 
-### folder structure
+A responsive React application built as part of the React learning roadmap.
+This project focuses on **Props**, **Component Architecture**, and **Responsive Design** using Tailwind CSS.
+
+---
+
+## 🎯 Concepts Covered
+
+- Props passing & destructuring
+- Parent → Child data flow
+- Children prop (Card wrapper)
+- Functions as props
+- Default props
+- Conditional rendering
+- Array of objects as data structure
+- Mobile-first responsive design with Tailwind CSS
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+├── Components/
+│   ├── Navbar.jsx          # Top navigation bar
+│   ├── Card.jsx            # Reusable wrapper (children prop)
+│   ├── StudentCard.jsx     # Main card — props distributor
+│   ├── StudentDetail.jsx   # Avatar + Name + Course + City
+│   ├── StudentInfo.jsx     # Status + Roll No + CGPA
+│   └── Buttons.jsx         # View Profile + Send Message
+│
+└── App.jsx                 # Data + functions + rendering
+```
+
+---
+
+## 🧩 Component Tree
+
+```
 App.jsx
 │
-├── Navbar.jsx          → Blue header
+├── Navbar.jsx
 │
-└── StudentCard.jsx     → Main wrapper (Card)
+└── StudentCard.jsx  (mapped from students array)
     │
-    ├── StudentDetail.jsx → Avatar + Name + City
-    ├── StudentInfo.jsx   → Status + Roll + CGPA
-    └── Buttons.jsx       → Two buttons
+    └── Card.jsx  ← children prop wrapper
+        │
+        ├── StudentDetail.jsx
+        ├── StudentInfo.jsx
+        └── Buttons.jsx
+```
 
-### Props
-- StudentCard.jsx
-    - name: string
-    - city: string
-    - status: string
-    - roll: number
-    - cgpa: number
-- StudentDetail.jsx
-    - name: string
-    - city: string
-- StudentInfo.jsx
-    - status: string
-    - roll: number
-    - cgpa: number  
-- Buttons.jsx
-    - No props needed, just two buttons with text "Edit" and "Delete"
+---
 
+## 📊 Data Structure
 
-### Styling
-- Use CSS modules or styled-components for styling.
-- The card should have a shadow and rounded corners.
-- The header should have a blue background and white text.
-- The buttons should have a hover effect (e.g., change color on hover).
+```js
+const students = [
+  {
+    id: 1,
+    name: "Aman Dhakate",
+    course: "BSc Computer Sci.",
+    year: "2nd Year",
+    city: "Lakhandur, Maharashtra",
+    status: true,
+    rollNo: "BSc-2026-001",
+    cgpa: 9.5,
+  },
+  // ...more students
+]
+```
 
+---
 
+## 📱 Responsive Breakpoints
 
-### functionality part
+| Screen | Size | Layout |
+|--------|------|--------|
+| Mobile | 0px — 767px | Single column, stacked |
+| Tablet | 768px — 1023px | 2 column grid |
+| Desktop | 1024px+ | 3 column grid |
 
-1. View Profile Button:
+---
 
-Click karo →
-alert ya console.log mein dikhao:
-"Viewing profile of Aman Sharma"
+## ⚙️ Props Flow
 
-Function as prop use karo —
-App mein function banao,
-StudentCard ko pass karo!
+```
+App.jsx
+│
+│  name, course, city, status,
+│  rollNo, cgpa, initial,
+│  viewProfile(), message()
+│
+↓
+StudentCard.jsx
+│
+├── StudentDetail  ← initial, name, course, city
+├── StudentInfo    ← status, rollNo, cgpa
+└── Buttons        ← viewProfile, message
+```
 
+---
 
-2. Send Message Button:
-Click karo →
-alert ya console.log mein dikhao:
-"Sending message to Aman Sharma"
+## 🚀 How to Run
 
-Same pattern —
-function as prop!
+```bash
+# Install dependencies
+npm install
 
-3. Active/Inactive Badge:
+# Start development server
+npm run dev
+```
 
-isActive = true  → Green "Active" badge
-isActive = false → Red "Inactive" badge
+---
 
-Conditional rendering use karo!
+## 🔧 Tech Stack
 
-4. Avatar Initials:
+- React 18
+- Tailwind CSS
+- Vite
 
-"Aman Sharma" → "AS"
-"Rahul Kumar" → "RK"
+---
 
-Logic:
-name.split(" ")
-    .map(word => word[0])
-    .join("")
-    .toUpperCase()
+## ✅ Features
 
-Yeh logic StudentCard ke
-andar likhna hai!
+- [x] 3 Student cards rendered from array
+- [x] Active / Inactive status badge
+- [x] Avatar with auto-generated initials
+- [x] View Profile alert on click
+- [x] Send Message alert on click
+- [x] Fully responsive — Mobile, Tablet, Desktop
 
-5. Array se Cards Render:
+---
 
-App mein students array hai —
-map() se StudentCard render karo —
-id as key use karo!
+## 📝 Score
 
-6. Default Props:
-Agar koi prop nahi aaya toh:
-name     = "Unknown Student"
-course   = "Not Enrolled"
-year     = "N/A"
-city     = "N/A"
-cgpa     = 0.0
-isActive = false
+| Category | Score |
+|----------|-------|
+| Consistency | 8/10 |
+| Code Quality | 8.5/10 |
+| Logic | 9/10 |
+| Code Purity | 8/10 |
+| Data Structure | 10/10 |
+| **Overall** | **8.7/10** |
 
-7. Card Wrapper — Children Prop:
-Card.jsx banao —
-StudentCard ko Card ke
-andar wrap karo!
+---
 
-Card sirf styling dega —
-children prop se content aayega!
+## 🧠 Key Learnings
 
-
-✅ Functions as props — 2 buttons
-✅ Conditional rendering — badge
-✅ Avatar initials — logic
-✅ Array map — cards render
-✅ Default props — fallback
-✅ Children prop — Card wrapper
-✅ Responsive — mobile/tablet/desktop
+1. Props are read-only — never mutate them
+2. Children prop makes components flexible and reusable
+3. Functions as props enable Child → Parent communication
+4. Array of objects is the industry standard for list data
+5. Mobile-first approach — no prefix = mobile, md: = tablet, lg: = desktop
